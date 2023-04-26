@@ -1,10 +1,20 @@
-import { ActionArgs } from "@remix-run/node";
+import { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import Blogs from "~/components/Blogs";
 import Button from "~/components/button";
 import supabase from "~/utils/supabase";
 
-export const loader = async () => {
+export const loader = async ({ request }: LoaderArgs) => {
+  const url = new URL(request.url);
+  const search = url.searchParams.get("search");
+  if (search) {
+    const { data, error } = await supabase
+      .from("gaestebuch")
+      .select()
+      .ilike("titel", `%${search}%`);
+
+    return { data };
+  }
   const { data } = await supabase.from("gaestebuch").select();
   return { data };
 };
@@ -22,8 +32,8 @@ export async function action({ request }: ActionArgs) {
 export default function Gaestebuch() {
   const { data } = useLoaderData();
   return (
-    <Form method="post">
-      <div>
+    <div>
+      <Form method="post">
         <div className="flex flex-col gap-3 m-3 max-w-xl">
           <div>
             <input
@@ -61,17 +71,27 @@ export default function Gaestebuch() {
             Save
           </button>
         </div>
-
-        {data.map((gaestebuch: any, index: any) => (
-          <Blogs
-            key={index}
-            text={gaestebuch.titel}
-            titel={gaestebuch.text}
-            datum={gaestebuch.zeitraum}
-            name={gaestebuch.name}
-          />
-        ))}
-      </div>
-    </Form>
+      </Form>
+      <Form method="get">
+        <input
+          className="border-2 border-black m-3 rounded-lg"
+          type="text"
+          placeholder="search"
+          name="search"
+        />
+        <button className="border-2 border-black rounded-lg bg-black text-white">
+          Search
+        </button>
+      </Form>
+      {data.map((gaestebuch: any, index: any) => (
+        <Blogs
+          key={index}
+          text={gaestebuch.titel}
+          titel={gaestebuch.text}
+          datum={gaestebuch.zeitraum}
+          name={gaestebuch.name}
+        />
+      ))}
+    </div>
   );
 }
