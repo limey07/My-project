@@ -19,7 +19,7 @@ export default function rechner() {
   }
 
   return (
-    <div>
+    <div className="text-center sm:text-left">
       <div>
         <h1>Rechner</h1>
 

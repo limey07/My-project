@@ -1,9 +1,4 @@
-import stylesheet from "~/tailwind.css";
-
-export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: stylesheet },
-];
-
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -12,9 +7,11 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import { LinksFunction } from "@remix-run/node";
+import stylesheet from "~/tailwind.css";
 import Blackbar from "./components/blackbar";
-
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
+];
 export default function App() {
   return (
     <html lang="en">
@@ -25,9 +22,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div className="flex flex-row min-h-screen">
+        <div className="flex min-h-screen">
           <Blackbar />
-          <div className="h-full w-full ">
+          <div className="flex h-full w-full flex-col px-8 py-4">
             <Outlet />
           </div>
         </div>

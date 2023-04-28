@@ -10,10 +10,12 @@ export const loader = async () => {
 export default function Test() {
   const { data } = useLoaderData();
   return (
-    <div className="flex fley-col gap-3">
-      {data.map((message: any, index: any) => (
-        <Blogs key={index} text={message.message} titel={message.titel} />
-      ))}
+    <div>
+      <div className="border-2 border-black bg-white text-white flex fley-col gap-3">
+        {data.map((message: any, index: any) => (
+          <Blogs key={index} text={message.message} titel={message.titel} />
+        ))}
+      </div>
     </div>
   );
 }

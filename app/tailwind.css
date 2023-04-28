@@ -2,19 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .buttton {
-  @apply rounded-full border-2 border-black bg-white px-4 py-1.5 text-sm font-semibold uppercase
-     text-black transition duration-200 ease-in-out  hover:border-black hover:bg-black
-     hover:text-white;
-}
+@layer components {
+  .buttton {
+    @apply rounded-full border-2 border-black bg-white px-4 py-1.5 text-sm font-semibold uppercase
+   text-black transition duration-200 ease-in-out  hover:border-black hover:bg-black
+   hover:text-white;
+  }
 
-.link {
-  @apply rounded-full border-2 border-black bg-black px-4 py-1.5 text-sm font-semibold uppercase
+  .link {
+    @apply rounded-full border-2 border-black bg-black px-4 py-1.5 text-sm font-semibold uppercase
      text-white transition duration-200 ease-in-out  hover:border-black hover:bg-white
      hover:text-black;
-}
+  }
 
-.button1 {
-  @apply border-2 border-black  text-white rounded-full font-semibold w-[100px] text-center m-2;
+  .button1 {
+    @apply border-2 border-black  text-white rounded-full font-semibold w-24 text-center m-2;
+  }
+
+  .link {
+    @apply rounded-full border-2 border-black bg-black px-4 py-1.5 text-sm font-semibold uppercase text-white transition duration-200 ease-in-out
+  hover:border-black hover:bg-white hover:text-black;
+  }
+  h1 {
+    @apply text-xl;
+  }
+  .image {
+    background-image: url("https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center center;
+  }
+
+  .highlight {
+    @apply text-red-500;
+  }
 }
- */

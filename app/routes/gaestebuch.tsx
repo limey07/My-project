@@ -7,12 +7,14 @@ import supabase from "~/utils/supabase";
 export const loader = async ({ request }: LoaderArgs) => {
   const url = new URL(request.url);
   const search = url.searchParams.get("search");
+  const searchoption = url.searchParams.get("searchoption");
+
   if (search) {
     const { data, error } = await supabase
       .from("gaestebuch")
       .select()
-      .ilike("titel", `%${search}%`);
-
+      .ilike(searchoption!, `%${search}%`);
+    `<span class="highlight">${search}</span>`;
     return { data };
   }
   const { data } = await supabase.from("gaestebuch").select();
@@ -29,10 +31,18 @@ export async function action({ request }: ActionArgs) {
   return {};
 }
 
+/* 
+const data = await response.json();
+    console.log(data);
+ 
+    setName("");
+    setEmail("");
+    setMessage(""); */
+
 export default function Gaestebuch() {
   const { data } = useLoaderData();
   return (
-    <div>
+    <div className="text-center sm:w-full md:w-full">
       <Form method="post">
         <div className="flex flex-col gap-3 m-3 max-w-xl">
           <div>
@@ -79,19 +89,37 @@ export default function Gaestebuch() {
           placeholder="search"
           name="search"
         />
-        <button className="border-2 border-black rounded-lg bg-black text-white">
+        <button className="border-2 border-black rounded-lg bg-black text-white w-24">
           Search
         </button>
+
+        <select
+          className=" border-2 border-black rounded-lg m-3"
+          name="searchoption"
+          id="searchoption"
+        >
+          <option value="">choose search option</option>
+          <option value="text">Text</option>
+          <option value="name">Name</option>
+          <option value="titel">Titel</option>
+        </select>
       </Form>
+
       {data.map((gaestebuch: any, index: any) => (
         <Blogs
           key={index}
-          text={gaestebuch.titel}
-          titel={gaestebuch.text}
+          text={gaestebuch.text}
+          titel={gaestebuch.titel}
           datum={gaestebuch.zeitraum}
           name={gaestebuch.name}
         />
       ))}
+
+      {data.length > 0 ? (
+        <p>{data.length} Einträge gefunden</p>
+      ) : (
+        <p>Keine Treffer</p>
+      )}
     </div>
   );
 }

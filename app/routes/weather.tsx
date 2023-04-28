@@ -11,22 +11,25 @@ export async function loader() {
 export default function Weather() {
   const { data } = useLoaderData();
   return (
-    <div>
-      <ul>
-        {data.metadata.stations.map((stations: any, index: any) => (
-          <li key={index}>
-            <div>{stations.name}</div>
-          </li>
-        ))}
-      </ul>
-      <ul>
-        {data.items[0].readings.map((readings: any, index: any) => (
-          <li key={index}>
-            <div>{readings.value}</div>
-          </li>
-        ))}
-      </ul>
-      Button
+    <div className="flex flex-row gap-4 ">
+      <div>
+        <ul>
+          {data.metadata.stations.map((stations: any, index: any) => (
+            <li key={index}>
+              <div>{stations.name}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <ul>
+          {data.items[0].readings.map((readings: any, index: any) => (
+            <li key={index}>
+              <div>{readings.value}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
